@@ -1,0 +1,39 @@
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        prehead = ListNode(-1)
+        curr = prehead
+        curr_l1 = l1
+        curr_l2 = l2
+        carry = False
+        while curr_l1 and curr_l2:
+            if (curr_l1.val + curr_l2.val + carry) > 9:
+                curr.next = ListNode(curr_l1.val + curr_l2.val + carry - 10)
+                carry = True
+            else:
+                curr.next = ListNode(curr_l1.val + curr_l2.val + carry)
+                carry = False
+            curr_l1 = curr_l1.next
+            curr_l2 = curr_l2.next
+            curr = curr.next
+            
+        while curr_l1:
+            if (curr_l1.val  + carry) > 9:
+                curr.next = ListNode(curr_l1.val + carry - 10)
+                carry = True
+            else:
+                curr.next = ListNode(curr_l1.val  + carry)
+                carry = False
+            curr_l1 = curr_l1.next
+            curr = curr.next
+        while curr_l2:
+            if ( curr_l2.val + carry) > 9:
+                curr.next = ListNode( curr_l2.val + carry - 10)
+                carry = True
+            else:
+                curr.next = ListNode(curr_l2.val + carry)
+                carry = False
+            curr_l2 = curr_l2.next
+            curr = curr.next
+        if carry:
+            curr.next = ListNode(int(carry))
+        return prehead.next    
