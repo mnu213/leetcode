@@ -1,0 +1,20 @@
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        result = ListNode(0)
+        rescurr = result
+        curr1 = l1
+        curr2 = l2
+        while curr1 and curr2:
+            if curr1.val < curr2.val:
+                rescurr.next = curr1
+                rescurr = rescurr.next
+                curr1 = curr1.next
+            else:
+                rescurr.next = curr2
+                rescurr = rescurr.next
+                curr2 = curr2.next
+        if curr1:
+            rescurr.next = curr1
+        if curr2:
+            rescurr.next = curr2
+        return result.next
