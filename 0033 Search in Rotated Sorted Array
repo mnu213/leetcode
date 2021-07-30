@@ -1,0 +1,40 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        if len(nums) == 1 and nums[0] == target:
+            return 0 
+        elif len(nums) == 1:
+            return -1
+        l,r = 0, len(nums)-1
+        mid = (l+r)//2
+        start_i = 0
+        while(l<=r):
+            if nums[mid] < nums[mid-1]:
+                start_i = mid
+                print(start_i)
+                break
+            if nums[mid] < nums[0]:
+                r = mid -1
+            else:
+                l = mid+1
+            mid = (l+r)//2
+        if start_i == 0:
+            return self.binarySearch(nums,0,len(nums)-1,target)
+        #we need the above if statement because the other statements assume that the 
+        #start_i is > 0
+        elif target >= nums[0]:
+            return self.binarySearch(nums,0,start_i-1,target)
+        else:
+            return self.binarySearch(nums,start_i,len(nums)-1,target)
+    def binarySearch(self,nums,l,r,target):
+        mid = (l+r)//2
+        while l <=r:
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                l = mid+1
+            else:
+                r = mid-1
+            mid = (l+r)//2
+        return -1
+        
+        
