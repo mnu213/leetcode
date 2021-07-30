@@ -1,0 +1,13 @@
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        return self.sortedArrayToBSThelper(nums,0,len(nums)-1)
+        
+        
+    def sortedArrayToBSThelper(self,nums,l, r):
+        if l>r: 
+            return None
+        mid_i = (l+r)//2
+        root = TreeNode(nums[mid_i])
+        root.left = self.sortedArrayToBSThelper(nums,l,mid_i-1)
+        root.right = self.sortedArrayToBSThelper(nums,mid_i+1,r)
+        return root
