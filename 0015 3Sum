@@ -1,0 +1,17 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = set()
+        h = defaultdict(int)
+        for i in range(len(nums)):
+            target = 0 - nums[i]
+            
+            for k in range(i+1,len(nums)): #i+1 or else we'll get duplicates
+                # if k == i:
+                #     continue
+                
+                if h[target - nums[k]] != 0: 
+                    res.add(tuple(sorted([nums[i],target - nums[k] , nums[k]])))    
+                    #need to convert to a tuple to put it in the set
+                h[nums[k]] +=1
+            h.clear()
+        return res
