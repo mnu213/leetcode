@@ -1,0 +1,27 @@
+class Solution:
+    def getSum(self, a: int, b: int) -> int:
+        x = abs(a)
+        y =  abs(b)
+        if x<y:
+            return self.getSum(b,a)
+
+        sign = 1 if a > 0 else -1
+        #the larger numebr will always be in front so we reduce our cases to:
+        #will treat both as addition and will remember 16's(a's) sign to multiply result by
+        # 16 +10 
+        #-16 -10
+        if (a*b) >= 0:
+            while(y):
+                answer = x ^ y
+                carry = (x & y) << 1 #we need to left shift the carry 
+                x, y = answer, carry
+
+        #will treat both as subtraction and will remember 16's(a's) sign to multiply result by
+        #16 - 10
+        #-16+12 
+        else:
+            while(y):
+                answer = x ^ y
+                borrow = ((~x) & y) << 1
+                x, y = answer, borrow
+        return x*sign
