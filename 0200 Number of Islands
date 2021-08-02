@@ -1,0 +1,24 @@
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid: return 0
+        ans = 0
+        visited = set()#!
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+            
+                if (grid[r][c] == "1") and ((r,c) not in visited):
+                    ans+=1
+                    bfs = deque()
+
+                    bfs.append([r,c])
+                    visited.add((r,c))#!
+                    while bfs:
+                        cur_r, cur_c = bfs.popleft()
+
+                        for n_r, n_c in [[cur_r+1,cur_c],[cur_r-1,cur_c],[cur_r,cur_c+1],[cur_r,cur_c-1]]:
+                            if 0 <= n_r < len(grid) and 0 <= n_c < len(grid[0]) and grid[n_r][n_c] == "1" and (n_r,n_c) not in visited:
+                                bfs.append([n_r,n_c])
+                                visited.add((n_r,n_c))
+        return ans
+                        
+            
