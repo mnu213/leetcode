@@ -1,0 +1,12 @@
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if not p and not q:
+            return True
+        # one of p and q is None
+        if not q or not p:
+            return False
+        if p.val != q.val:
+            return False
+        isSameLeft = self.isSameTree(p.left,q.left)
+        isSameRight = self.isSameTree(p.right,q.right)
+        return isSameLeft and isSameRight
