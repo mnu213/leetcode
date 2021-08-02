@@ -1,0 +1,13 @@
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        #what should i return if 1 of arrays is empty? empty array
+        #what is noting matches? -> empty array
+        #should have asked about repeated overlap and how to output
+        res= set()
+        
+        nums2_set = set(nums2)
+        for num in nums1:
+            if num in nums2_set:
+                res.add(num)
+                
+        return res
