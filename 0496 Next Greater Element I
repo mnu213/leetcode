@@ -1,0 +1,27 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        
+        if len(nums2) == 0:
+            return []
+        if len(nums1) == 0:
+            return []
+        s  = []
+        res = {}
+        s.append(nums2[0])
+        i = 1
+        while i < len(nums2):
+            if len(s) == 0:
+                s.append(nums2[i])
+                i +=1
+            elif nums2[i] > s[-1]:
+                res[s.pop()] = nums2[i]
+            else:
+                s.append(nums2[i])
+                i +=1
+        for num in s:
+            res[num] = -1
+        result = []
+        for num in nums1:
+            result.append(res[num])
+        return result
+            
