@@ -1,0 +1,26 @@
+class MyStack:
+
+    def __init__(self):
+        self.queue = collections.deque([])
+        
+
+    def push(self, x: int) -> None:
+        self.queue.append(x)
+        for i in range(len(self.queue)-1):
+            self.queue.append(self.queue.popleft())
+        
+
+    def pop(self) -> int:
+        if len(self.queue):
+            return self.queue.popleft()
+        return -1
+        
+
+    def top(self) -> int:
+        if len(self.queue):
+            return self.queue[0]
+        return -1
+        
+
+    def empty(self) -> bool:
+        return not len(self.queue)
