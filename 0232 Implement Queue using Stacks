@@ -1,0 +1,33 @@
+class MyQueue:
+
+    def __init__(self):
+        self.s_dequeue = []
+        self.s_enqueue = []
+        
+
+    def push(self, x: int) -> None:
+        self.s_enqueue.append(x)
+        
+
+    def pop(self) -> int:
+        if len(self.s_dequeue) == 0:
+            for i in range(len(self.s_enqueue)):
+                self.s_dequeue.append(self.s_enqueue.pop())
+        if len(self.s_dequeue):
+            return self.s_dequeue.pop()
+        return -1
+        
+        
+
+    def peek(self) -> int:
+        if len(self.s_dequeue) == 0:
+            for i in range(len(self.s_enqueue)):
+                self.s_dequeue.append(self.s_enqueue.pop())
+        if len(self.s_dequeue):
+            return self.s_dequeue[-1]
+        return -1
+        
+
+    def empty(self) -> bool:
+        if len(self.s_enqueue) + len(self.s_dequeue) == 0:
+            return True
