@@ -1,0 +1,19 @@
+from collections import defaultdict
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        #shouldve asked what the range of numbers and if they would be neg
+        longest_seq = 0
+        num_set = set(nums)
+        
+        for num in nums:
+            if num -1 not in num_set:
+                current_streak = 1
+                curr_num = num
+                while curr_num +1 in num_set:
+                    current_streak +=1
+                    curr_num = curr_num +1
+                longest_seq = max(longest_seq, current_streak)
+                
+        return longest_seq
+            
+        
