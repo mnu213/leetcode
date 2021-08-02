@@ -1,0 +1,7 @@
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        h = defaultdict(int)
+        for num in nums:
+            if h[num] == 1: return True
+            h[num]+=1
+        return False
