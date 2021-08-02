@@ -1,0 +1,29 @@
+class Solution:
+    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
+        i = 0
+        used = []
+        while i < len(arr):
+            piecesearchedflag = False
+            for index in range(len(pieces)):
+                if pieces[index][0] == arr[i]:
+                    piecesearchedflag = True
+                    for j in range(len(pieces[index])):
+                        if pieces[index][j] == arr[i]:
+                            i+= 1
+                        else:
+                            return False
+                    used.append(pieces[index]) #if input is [15,82] [82][15] then finding piece 15 moves the
+                                                #cursor on array forward to point to 82, but when piece 82 is
+                                                #found the cursor is moved to(i = 2),  and the remaining pieces
+                                                #are still iterated through in the for loop. So arr[2] is 
+                                                #attempted to be compared to piece 82
+                    del pieces[index]
+                    break #in the case that the piece taken out of pieces:we need the forloop's index to start
+                            #back at  0
+            if piecesearchedflag == False:
+                return False
+        return True
+                        
+                
+                
+            
