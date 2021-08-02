@@ -1,0 +1,52 @@
+class Solution:
+    def nextInt(self,s, i):
+        curr_int = ""
+        j = i
+        while j < len(s) and s[j].isnumeric():
+            curr_int += s[j]
+            j+=1
+        i = j
+        return [curr_int,i]
+    def calculate(self, s: str) -> int:
+        stack = []
+        res = []
+        i = 0
+        h = {"+":1,"-":1,"/":2, "*":2}
+        while(i < len(s)):
+            if s[i].isnumeric():
+                temp = self.nextInt(s,i)
+                res.append(temp[0])
+                i = temp[1]
+                
+            elif s[i] == " ":
+                i+=1
+            elif s[i] in "+-/*":
+                while len(stack) and h[stack[-1]] >= h[s[i]]:
+                    res.append(stack.pop())
+                stack.append(s[i])
+                i+=1
+
+        while len(stack):
+            res.append(stack.pop())
+        print(res)
+        stack2 = []
+        for char in res:
+            if char.isnumeric():
+                stack2.append(char)
+            else:
+                op2 = int(stack2.pop())
+                op1 = int(stack2.pop())
+                if char == "+":
+                    stack2.append(op1 + op2)
+                if char == "-":
+                    stack2.append(op1 - op2)
+                if char == "*":
+                    stack2.append(op1 * op2)
+                if char == "/":
+                    stack2.append(op1 / op2)
+        return floor(int(stack2[0]))
+       
+                
+                
+        
+            
