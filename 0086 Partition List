@@ -1,0 +1,18 @@
+class Solution:
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        before = ListNode(-1)
+        after = ListNode(-1)
+        before_head = before
+        after_head = after
+        curr = head
+        while curr:
+            if curr.val < x:
+                before_head.next = curr
+                before_head = before_head.next
+            else:
+                after_head.next = curr
+                after_head = after_head.next
+            curr = curr.next
+        before_head.next = after.next
+        after_head.next = None
+        return before.next
