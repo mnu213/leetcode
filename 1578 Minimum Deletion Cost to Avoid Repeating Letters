@@ -1,0 +1,28 @@
+class Solution:
+    def minCost(self, s: str, cost: List[int]) -> int:
+        if not s: return 0
+        l,r = 0,0
+        
+        localmax = -inf
+        indexes_to_keep = []
+
+        while(r < len(s)):
+            if s[r] == s[l]:
+                if cost[r] > localmax:
+                    localmax = cost[r]
+
+                
+            else:
+                indexes_to_keep.append(localmax)
+                localmax = cost[r]
+                l = r
+            r+=1
+        indexes_to_keep.append(localmax)
+
+            
+        totalcost = sum(cost)
+        print(totalcost)
+        requiredcost = sum(indexes_to_keep)
+        print(indexes_to_keep)
+        print(requiredcost)
+        return totalcost -requiredcost
