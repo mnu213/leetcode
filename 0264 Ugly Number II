@@ -1,0 +1,23 @@
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        if n == 1:return 1
+        res= [1]
+        i_2=i_3=i_5 = 0
+        next_to_multiply_by_2,next_to_multiply_by_3,next_to_multiply_by_5 = 2,3,5
+        i = 1
+        while i < n:
+            next_ugly = min(next_to_multiply_by_2,next_to_multiply_by_3,next_to_multiply_by_5)
+            if res[-1] != next_ugly:
+                res.append(next_ugly)
+                i+=1
+            if next_ugly == next_to_multiply_by_2:
+                i_2 +=1
+                next_to_multiply_by_2 = res[i_2] *2
+            elif next_ugly == next_to_multiply_by_3:
+                i_3 +=1
+                next_to_multiply_by_3 = res[i_3] *3
+            else:
+                i_5 +=1
+                next_to_multiply_by_5 = res[i_5] *5
+        print(res)
+        return res[-1]
