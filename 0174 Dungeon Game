@@ -1,0 +1,24 @@
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        
+        rows,cols = len(dungeon),len(dungeon[0])
+        dp = []
+        for i in range(rows):
+            dp.append([0]*cols)
+        if dungeon[-1][-1] < 0:
+            dp[-1][-1] = 1- dungeon[-1][-1]
+        else:
+            dp[-1][-1] = 1
+        for row in reversed(range(rows)):
+            for col in reversed(range(cols)):
+                if (row == rows-1 )and (col == cols-1):
+                    continue
+                curr_cell = dungeon[row][col]
+                #this is the the brunt of the code
+                #start with the assumption that dp[x][y] will have the min health
+                #we need to have once we are at the x,y coordinate
+                #so we just need
+                down  = inf if row+1 >= rows else max(1,dp[row+1][col]-curr_cell)
+                right  = inf if col+1 >= cols else max(1,dp[row][col+1]-curr_cell)
+                dp[row][col] = min(down, right)
+        return dp[0][0]
