@@ -1,0 +1,23 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0: 
+            return 0
+        res = [0]*amount
+        for coin in coins:
+            if coin-1 < len(res):
+                res[coin-1] = 1
+        for i in range(len(res)):
+            if res[i] == 1:
+                continue
+            minstep = inf
+            for coin in coins:
+                if i-coin >= 0:
+                    if res[i-coin] > 0: 
+                        minstep = min(minstep,res[i-coin])
+            if minstep == inf:
+                res[i] = 0
+            else:
+                res[i] = minstep +1
+        return -1 if res[-1] == 0 else res[-1]
+                
+                
