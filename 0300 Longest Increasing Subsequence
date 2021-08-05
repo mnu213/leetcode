@@ -1,0 +1,12 @@
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1]* len(nums)
+        for i in range(len(dp)):
+            max_subseq_len = 1
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    max_subseq_len = max(dp[j] +1,max_subseq_len)
+            dp[i] = max_subseq_len
+        print(dp)
+        return max(dp)
+        
