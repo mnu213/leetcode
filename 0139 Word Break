@@ -1,0 +1,11 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False]*(len(s)+1)
+        dp[0] = True
+        for l in range(len(s)):
+            for r in range(l+1,len(s)+1):
+                if dp[l] and s[l:r] in wordDict:
+                    dp[r] = True
+        return dp[-1]
+     "c a t s a n d d o g"
+     [T,F,F,T,T,F,F,T,F,F,T]
