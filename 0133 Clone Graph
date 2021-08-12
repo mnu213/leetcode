@@ -1,0 +1,27 @@
+
+#Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = []):
+        self.val = val
+        self.neighbors = neighbors
+
+from collections import deque
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        visited = {}
+        dfs = []
+        dfs.append(node)
+        visited[node] = Node(node.val)
+        while dfs:
+            curr = dfs.pop()
+            for neighbor in curr.neighbors:
+                if neighbor not in visited:
+                    dfs.append(neighbor)
+                    visited[neighbor] = Node(neighbor.val)
+                visited[curr].neighbors.append(visited[neighbor])
+        return visited[node]
+
+                    
+                    
