@@ -1,0 +1,27 @@
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(heights), len(heights[0])
+        dfs_atlantic = deque()
+        dfs_pacific = deque()
+        
+        for i in range(cols):
+            dfs_pacific.append((0,i))
+            dfs_atlantic.append((rows-1,i))
+        for i in range(rows):
+            dfs_pacific.append((i,0))
+            dfs_atlantic.append((i,cols-1))
+
+        def dfs(queue):
+            reachable = set()
+            while queue:
+                curr_row,curr_col = queue.popleft()
+                reachable.add((curr_row,curr_col))
+                for i,j in [(1,0),(0,1),(-1,0),(0,-1)]:
+                    if (0 <= curr_row+i < rows) and (0 <= curr_col+j < cols) and (curr_row+i,curr_col+j) not in reachable:
+                        if heights[(curr_row+i)][(curr_col+j)] >= heights[curr_row][curr_col]:
+                            queue.append((curr_row+i,curr_col+j))
+            return reachable
+        
+        visited_pacific = dfs(dfs_pacific)
+        visited_atlantic = dfs(dfs_atlantic)
+        return visited_pacific.intersection(visited_atlantic)
