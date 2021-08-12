@@ -1,0 +1,29 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        adjList = defaultdict(list)
+        for pair in prerequisites:
+            adjList[pair[1]].append(pair[0])
+        path = [False] * numCourses
+        # for node in adjList:
+        visited = [False] * numCourses
+        for node in range(numCourses):
+            if self.isCyclic(node,path,adjList,visited):
+                return False
+        return True
+    def isCyclic(self,currnode,path,adjList,visited):
+        if path[currnode]:
+            return True
+        if visited[currnode]:
+            return False
+        if not adjList[currnode]:
+            return False
+        visited[currnode] = True
+        path[currnode] = True
+        
+        for neighbor in adjList[currnode]:
+            ret = self.isCyclic(neighbor,path,adjList,visited)
+            
+            if ret: break
+        
+        path[currnode] = False
+        return ret
