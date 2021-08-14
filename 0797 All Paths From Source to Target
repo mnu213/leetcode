@@ -1,0 +1,17 @@
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        path = [0]
+        res = []
+        
+        def backtrack(currNode,path):
+            if currNode == (len(graph)-1):
+                res.append(list(path)) #trick to make a copy of the list
+                return
+            for child in graph[currNode]:
+                path.append(child)
+                backtrack(child,path)
+                path.pop()
+                
+        backtrack(0,path)
+        return res
+        
