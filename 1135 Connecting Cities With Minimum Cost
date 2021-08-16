@@ -1,0 +1,35 @@
+class DSU:
+    def __init__(self,num_of_nodes):
+        self.parents = [-1] * (num_of_nodes+1)
+        for i in range(len(self.parents)):
+            self.parents[i]  = i
+    #this returns the parent(key) of given node
+    def find(self,node :int):
+        if self.parents[node] == node:
+            return node
+        return self.find(self.parents[node])
+    #takes two node and changes one of their parent
+    def union(self,node1,node2):
+        node1_parent = self.find(node1)
+        node2_parent = self.find(node2)
+        if node1_parent != node2_parent:
+            self.parents[node1_parent] = node2_parent
+            
+class Solution:
+    def minimumCost(self, n: int, connections: List[List[int]]) -> int:
+        dsu = DSU(n)
+        connections = sorted(connections, key = lambda x:x[2])
+        totaledges = 0
+        cost = 0
+        for connection in connections:
+            if dsu.find(connection[0]) != dsu.find(connection[1]):
+                dsu.union(connection[0],connection[1])
+                cost+= connection[2]
+                totaledges += 1
+            else:
+                continue
+        if totaledges == n-1:
+            return cost
+        else:
+            return -1
+                
