@@ -1,0 +1,28 @@
+#INEFFICIENT SOLUTION BUT I WANTED TO TRY OUT UNION FIND
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        parent  = [-1] * len(isConnected)
+        def find(node : int): #returns the parent's index
+            if parent[node] == -1:
+                return node
+            return find(parent[node])
+        def union(node1,node2):
+        #take two nodes and check put them in the same grouup aka change one's parent
+            index_parent_1= find(node1)
+            index_parent_2= find(node2)
+            #at this point we have just found two nodes who are parents(have parent value of -1)
+            if index_parent_1 != index_parent_2:
+                parent[index_parent_1] = index_parent_2
+        
+
+        for row in range(len(isConnected)):
+            for col in range(len(isConnected[0])):
+                if isConnected[row][col] == 1:
+                    union(row,col)
+        #each parent will have parent value of -1
+        #we are basically counting the number of representatives
+        count =0
+        for p in parent:
+            if p == -1:
+                count +=1
+        return count
