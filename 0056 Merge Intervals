@@ -1,0 +1,22 @@
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals = sorted(intervals)
+        j = 1
+        res = []
+        def overlap(interval1,interval2):
+            # return interval2[0] <= interval1[1] <= interval2[1]
+            #doesnt work for an example like this: [[1,4],[2,3]]
+            return interval1[1]>=interval2[0]
+        temp =  intervals[0]
+        
+        while j < len(intervals):
+            if overlap(temp,intervals[j]):
+                # temp = [temp[0],intervals[j][1]] misses the edge case [[1,4],[2,3]]
+                temp = [temp[0],max(temp[1],intervals[j][1])]
+                j+=1
+            else:
+                res.append(temp)
+                temp = intervals[j]
+                j+=1
+        res.append(temp)
+        return res        
