@@ -1,0 +1,17 @@
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        rooms= []
+        res = 0
+        intervals.sort()
+        for interval in intervals:
+            entered = False
+            for i in range(len(rooms)):
+                if rooms[i][1] <= interval[0]:
+                    rooms[i] = interval
+                    entered = True
+                    break
+            if entered == False:
+                rooms.append(interval)
+                res +=1
+            entered  = False
+        return res
