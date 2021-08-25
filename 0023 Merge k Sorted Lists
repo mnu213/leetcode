@@ -1,0 +1,24 @@
+class Solution(object):
+    def mergeKLists(self, lists):
+        candidates = []
+        for lst in lists:
+            candidates.append(lst)
+            
+        head = curr = ListNode(-1)
+        while True:
+            min_val = inf
+            min_node = None
+            min_index = -1
+            allnone = True
+            for i in range(len(candidates)):
+                if candidates[i] and candidates[i].val < min_val:
+                    min_val = candidates[i].val
+                    min_node = candidates[i]
+                    min_index = i
+                    allnone = False
+            if allnone: break
+            curr.next = min_node
+            curr = curr.next
+            candidates[min_index] = candidates[min_index].next
+            
+        return head.next
