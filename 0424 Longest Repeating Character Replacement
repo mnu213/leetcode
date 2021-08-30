@@ -1,0 +1,20 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+
+        h = defaultdict(int)
+        
+        i,j = 0, 0
+        max_len = 0
+        curr_len = 0
+        while j < len(s):
+            h[s[j]] +=1
+            curr_len +=1
+            j+=1
+            while(j-i-h[max(h,key = h.get)]>k):
+                h[s[i]] -=1
+                i+=1
+                curr_len -=1
+            max_len = max(curr_len,max_len)
+        return max_len
+            
+            
