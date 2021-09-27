@@ -1,39 +1,24 @@
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        prehead = ListNode(-1)
-        curr = prehead
-        curr_l1 = l1
-        curr_l2 = l2
-        carry = False
-        while curr_l1 and curr_l2:
-            if (curr_l1.val + curr_l2.val + carry) > 9:
-                curr.next = ListNode(curr_l1.val + curr_l2.val + carry - 10)
-                carry = True
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        carry = 0
+        dummy = ListNode(-1)
+        curr = dummy
+        while l1 or l2:
+            if not l1:
+                l1val = 0
             else:
-                curr.next = ListNode(curr_l1.val + curr_l2.val + carry)
-                carry = False
-            curr_l1 = curr_l1.next
-            curr_l2 = curr_l2.next
+                l1val = l1.val
+                l1 = l1.next
+            if not l2:
+                l2val = 0
+            else:
+                l2val = l2.val
+                l2 = l2.next
+            to_add = (carry + l1val + l2val)% 10
+            carry = (carry + l1val + l2val)//10
+            curr.next = ListNode(to_add)
             curr = curr.next
             
-        while curr_l1:
-            if (curr_l1.val  + carry) > 9:
-                curr.next = ListNode(curr_l1.val + carry - 10)
-                carry = True
-            else:
-                curr.next = ListNode(curr_l1.val  + carry)
-                carry = False
-            curr_l1 = curr_l1.next
-            curr = curr.next
-        while curr_l2:
-            if ( curr_l2.val + carry) > 9:
-                curr.next = ListNode( curr_l2.val + carry - 10)
-                carry = True
-            else:
-                curr.next = ListNode(curr_l2.val + carry)
-                carry = False
-            curr_l2 = curr_l2.next
-            curr = curr.next
-        if carry:
-            curr.next = ListNode(int(carry))
-        return prehead.next    
+        if carry == 1:
+            curr.next = ListNode(1)
+        return dummy.next
