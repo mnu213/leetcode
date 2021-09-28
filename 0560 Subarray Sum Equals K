@@ -1,0 +1,21 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+#         res = 0
+#         for r in range(len(nums)):
+#             runningsum = 0
+#             for c in range(r,len(nums)):
+#                 runningsum += nums[c]
+#                 if runningsum == k: res += 1
+#         return res
+        h = defaultdict(int)
+        runningsum = 0
+        res = 0
+        h[0] = 1 # this is key to start it all off
+        for elem in nums:
+            runningsum += elem
+            
+        
+            res += h[runningsum - k]
+            h[runningsum] += 1 
+            
+        return res
