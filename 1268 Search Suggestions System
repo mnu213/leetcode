@@ -1,0 +1,24 @@
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+        res = []
+        for i in range(1,len(searchWord)+1):
+            curr_slice = searchWord[0:i]
+            counter = 0
+            subres = []
+            for prod in products:
+                matches = True
+                if len(curr_slice) > len(prod):
+                    continue
+                for i in range(len(curr_slice)):
+                    if counter == 3 or curr_slice[i] != prod[i]:
+                        matches = False
+                        break
+                if matches:
+                    counter +=1
+                    subres.append(prod)
+                if counter == 3:
+                    break
+            res.append(subres)
+        return res
+                
