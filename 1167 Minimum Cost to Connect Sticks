@@ -1,0 +1,16 @@
+
+from queue import PriorityQueue
+class Solution:
+    def connectSticks(self, sticks: List[int]) -> int:
+        q = PriorityQueue()
+        for i in range(len(sticks)):
+            q.put(sticks[i],i)
+        cost = 0
+        i = len(sticks)
+        while q.qsize() > 1:
+            curr_cost = q.get() + q.get()
+            print(curr_cost)
+            q.put(curr_cost,i)
+            i+=1
+            cost += curr_cost
+        return cost
